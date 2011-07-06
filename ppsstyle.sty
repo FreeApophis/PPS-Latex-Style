@@ -1,0 +1,166 @@
+% $Id: ppsstyle.sty 29 2011-02-12 14:49:33Z gardar $
+% $URL: https://gardar@gardar.ch:443/svn/test/trunk/ppsarticle/ppsstyle.sty $
+%
+% $Author: gardar $
+% $Date: 2011-02-12 15:49:33 +0100 (Sat, 12 Feb 2011) $
+% $Revision: 29 $
+
+\ProvidesPackage{ppsstyle}[2011/01/11 v 0.1 PPS Style]
+
+\RequirePackage{calc}
+
+% -----------------------------------
+% Schrift und Absatz
+% -----------------------------------
+\RequirePackage{fontspec}
+\RequirePackage{xltxtra}
+\RequirePackage{xunicode}
+\RequirePackage[parfill]{parskip}
+
+\setsansfont{Aller}
+\renewcommand{\familydefault}{\sfdefault}
+
+\newfontfamily{\Allerlight}{Aller Light}
+\newfontfamily{\Allerbold}{Aller Bold}
+
+\setkomafont{pagenumber}{\Allerlight}
+\setkomafont{pagefoot}{\Allerlight}
+\setkomafont{sectioning}{\Allerbold}
+
+\setkomafont{pageheadfoot}{\Allerbold}
+
+%\KOMAoptions{fontsize=12pt}
+
+% -----------------------------------
+% Farben
+% -----------------------------------
+\RequirePackage{xcolor}
+
+\definecolor{shadetop}{cmyk}{0,0.25,1,0}
+\definecolor{shadebottom}{cmyk}{0,0.55,1,0}
+
+\definecolor{weiss}{cmyk}{0,0,0,0}
+\definecolor{gelb}{cmyk}{0,0.1,1,0}
+\definecolor{orange}{cmyk}{0,0.35,1,0}
+\definecolor{hellrot}{cmyk}{0,0.75,1,0}
+\definecolor{dunkelrot}{cmyk}{0.15,1,0.6,0}
+\definecolor{schwarz}{cmyk}{1,1,1,1}
+\definecolor{violet}{cmyk}{0.65,0.75,0,0.35}
+\definecolor{blau}{cmyk}{0.8,0.5,0,0}
+
+%[upper left=shadetop, upper right=shadetop!100!shadebottom!100, lower left=shadetop!100!shadebottom!100, lower right= shadebottom]
+
+% -----------------------------------
+% Grafiken
+% -----------------------------------
+\RequirePackage{graphicx}
+\RequirePackage{eso-pic}
+
+\newlength{\tlogowidth}
+\newlength{\hlogoheight}
+\newlength{\hlogospace}
+\newlength{\tpagemargin}
+\newlength{\abstractwidth}
+\AtBeginDocument{
+	\setlength{\hlogoheight}{\headheight/3*2}
+	\setlength{\hlogospace}{\hlogoheight/2}
+	\setlength{\tlogowidth}{\linewidth/2}
+	\setlength{\tpagemargin}{\textheight/10}
+	\setlength{\abstractwidth}{\linewidth/10*8}
+}
+
+\newcommand{\titlelogo}{%
+	\includegraphics[width=\tlogowidth]{\logonego}
+}
+
+\newcommand{\headerlogo}{%
+	\includegraphics[height=\hlogoheight]{\logo}%
+	\vspace{\hlogospace}%
+}
+
+\newcommand{\wellen}{%
+	\AtStockLowerLeft{%
+		\put(0,0){\includegraphics[width=\paperwidth]{logo/welle.pdf}}%
+}}
+
+\AddToShipoutPicture{\wellen}
+
+% -----------------------------------
+% Tikz Styles
+% -----------------------------------
+\RequirePackage{tikz}
+
+\tikzset{help lines/.style={color=violet!30, very thin}}
+
+% -----------------------------------
+% Kopf- und fusszeile
+% -----------------------------------
+\RequirePackage{scrpage2}
+\KOMAoptions{headinclude=true}
+\KOMAoptions{footinclude=false}
+\KOMAoptions{headlines=3}
+\KOMAoptions{pagesize}
+\recalctypearea
+
+\pagestyle{scrheadings}
+
+\ihead{\headerlogo}
+\ohead{%
+	\upshape\textbf{\@title}%
+
+	\vspace{1em}%
+	\scriptsize \@author\\\@date%
+}
+
+\setheadsepline{0.01em}
+
+\deftripstyle{title}{\headerlogo}{}{}{}{\pagemark}{}
+
+
+\renewenvironment{titlepage}{
+	\ClearShipoutPicture
+	\AddToShipoutPicture*{
+		\begin{tikzpicture}
+			\draw (0,0) -- (0,0);
+			\draw [color=orange, fill=orange](\ta@bcor+1cm,1cm) rectangle (\paperwidth-1cm,\paperheight-1cm);
+		\end{tikzpicture}}
+}{
+	\begin{flushright}
+		\vfill\titlelogo
+	\end{flushright}
+	\thispagestyle{empty}
+	\newpage
+	\AddToShipoutPicture{\wellen}
+}
+
+\renewcommand{\maketitle}{
+	\thispagestyle{title}
+	\if@titlepage\vspace*{\tpagemargin}\else\fi
+	\begin{flushright}
+	{\Huge\name\\\large\@title}
+
+	\vspace{3em}{\raggedleft\scriptsize\@author\hspace{1em}\@date}
+	\end{flushright}
+	\vspace{2em}
+}
+
+% -----------------------------------
+% Sprache
+% -----------------------------------
+\RequirePackage[english,french,italian,ngerman]{babel}
+
+\providecaptionname{english}{\logo}{logo/en.pdf}
+\providecaptionname{french}{\logo}{logo/fr.pdf}
+\providecaptionname{italian}{\logo}{logo/it.pdf}
+\providecaptionname{ngerman}{\logo}{logo/de.pdf}
+
+\providecaptionname{english}{\logonego}{logo/nego-en.pdf}
+\providecaptionname{french}{\logonego}{logo/nego-fr.pdf}
+\providecaptionname{italian}{\logonego}{logo/nego-it.pdf}
+\providecaptionname{ngerman}{\logonego}{logo/nego-de.pdf}
+
+\providecaptionname{english}{\name}{\textbf{pirate}party}
+\providecaptionname{french}{\name}{parti\textbf{pirate}}
+\providecaptionname{italian}{\name}{partito\textbf{pirata}}
+\providecaptionname{ngerman}{\name}{\textbf{piraten}partei}
+

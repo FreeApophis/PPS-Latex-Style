@@ -1,0 +1,62 @@
+%!TEX TS-program = XeLaTex
+%!TEX encoding = UTF-8 Unicode
+% $Id: demo.tex 30 2011-02-13 23:03:32Z gardar $
+% $URL: https://gardar@gardar.ch:443/svn/test/trunk/ppsarticle/demo.tex $
+%
+% $Author: gardar $
+% $Date: 2011-02-14 00:03:32 +0100 (Mon, 14 Feb 2011) $
+% $Revision: 30 $
+
+
+\documentclass[titlepage]{scrartcl}
+%\documentclass[notitlepage]{scrreprt}
+\usepackage{ppsstyle}
+
+
+\author{Lipsum}
+\title{Lorem ipsum dolor sit amet}
+
+% -------------------------------------------
+% Activate to display a given date or no date
+% -------------------------------------------
+% \date{}
+
+\usepackage{lipsum}
+
+\begin{document}
+% -------------------------------------------
+% Set the language will also change the logo
+% Possible options are:
+% 	english
+% 	french
+% 	italian
+% 	ngerman
+% -------------------------------------------
+\selectlanguage{ngerman}
+
+\maketitle
+
+\begin{abstract}
+\lipsum[23]
+\end{abstract}
+
+%\chapter{Suspendisse vel felis}
+%\lipsum[42]
+\section{Fusce mauris}
+\lipsum[6]
+\lipsum[7]
+
+\subsection{Nam dui ligula}
+\lipsum[56]
+\lipsum[57]
+\lipsum[58]
+
+\subsubsection{Suspendisse vel felis}
+\lipsum[12]
+\lipsum[13]
+
+\section{Nulla in ipsum}
+\lipsum[14]
+%\lipsum[15]
+
+\end{document}
